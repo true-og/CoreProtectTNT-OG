@@ -3,4 +3,4 @@ main: net.trueog.coreprotecttntog.Main
 version: ${version}
 api-version: 1.19
 depend:
-  - CoreProtect
+  - CoreProtect-OG
