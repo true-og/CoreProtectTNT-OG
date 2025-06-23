@@ -1,90 +1,76 @@
 package net.trueog.coreprotecttntog;
 
-import org.bukkit.entity.Player;
-
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import org.bukkit.entity.Player;
 
 public class Utils {
 
-	// Sends a formatted message to the player (including name replacement).
-	public static void coreProtectTNTOGMessage(Player p, String message) {
+    // Sends a formatted message to the player (including name replacement).
+    public static void coreProtectTNTOGMessage(Player p, String message) {
 
-		p.sendMessage(legacySerializerAnyCase((message)));
+        p.sendMessage(legacySerializerAnyCase((message)));
+    }
 
-	}
+    public static TextComponent legacySerializerAnyCase(String subject) {
 
-	public static TextComponent legacySerializerAnyCase(String subject) {
+        int count = 0;
+        // Count the number of '&' characters to determine the size of the array
+        for (char c : subject.toCharArray()) {
 
-		int count = 0;
-		// Count the number of '&' characters to determine the size of the array
-		for (char c : subject.toCharArray()) {
+            if (c == '&') {
 
-			if (c == '&') {
+                count++;
+            }
+        }
 
-				count++;
+        // Create an array to store the positions of '&' characters
+        int[] positions = new int[count];
+        int index = 0;
+        // Find the positions of '&' characters and store in the array
+        for (int i = 0; i < subject.length(); i++) {
 
-			}
+            if (subject.charAt(i) == '&') {
 
-		}
+                if (isUpperBukkitCode(subject.charAt(i + 1))) {
 
-		// Create an array to store the positions of '&' characters
-		int[] positions = new int[count];
-		int index = 0;
-		// Find the positions of '&' characters and store in the array
-		for (int i = 0; i < subject.length(); i++) {
+                    subject = replaceCharAtIndex(subject, (i + 1), Character.toLowerCase(subject.charAt(i + 1)));
+                }
 
-			if (subject.charAt(i) == '&') {
+                positions[index++] = i;
+            }
+        }
 
-				if (isUpperBukkitCode(subject.charAt(i + 1))) {
+        return LegacyComponentSerializer.legacyAmpersand().deserialize(subject);
+    }
 
-					subject = replaceCharAtIndex(subject, (i + 1), Character.toLowerCase(subject.charAt(i + 1)));
+    private static boolean isUpperBukkitCode(char input) {
 
-				}
+        char[] bukkitColorCodes = {'A', 'B', 'C', 'D', 'E', 'F', 'K', 'L', 'M', 'N', 'O', 'R'};
+        boolean match = false;
 
-				positions[index++] = i;
+        // Loop through each character in the array.
+        for (char c : bukkitColorCodes) {
+            // Check if the current character in the array is equal to the input character.
+            if (c == input) {
 
-			}
+                match = true;
+            }
+        }
 
-		}
+        return match;
+    }
 
-		return LegacyComponentSerializer.legacyAmpersand().deserialize(subject);
+    private static String replaceCharAtIndex(String original, int index, char newChar) {
 
-	}
+        // Check if the index is valid
+        if (index >= 0 && index < original.length()) {
 
-	private static boolean isUpperBukkitCode(char input) {
+            // Create a new string with the replaced character
+            return original.substring(0, index) + newChar + original.substring(index + 1);
+        }
 
-		char[] bukkitColorCodes = {'A', 'B', 'C', 'D', 'E', 'F', 'K', 'L', 'M', 'N', 'O', 'R'};
-		boolean match = false;
-
-		// Loop through each character in the array.
-		for (char c : bukkitColorCodes) {
-			// Check if the current character in the array is equal to the input character.
-			if (c == input) {
-
-				match = true;
-
-			}
-
-		}
-
-		return match;
-
-	}
-
-	private static String replaceCharAtIndex(String original, int index, char newChar) {
-
-		// Check if the index is valid
-		if (index >= 0 && index < original.length()) {
-
-			// Create a new string with the replaced character
-			return original.substring(0, index) + newChar + original.substring(index + 1);
-
-		}
-
-		// If the index is invalid, return the original string
-		return original;
-
-	}
-
+        // If the index is invalid, return the original string
+        return original;
+    }
 }
