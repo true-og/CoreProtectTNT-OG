@@ -10,6 +10,7 @@ public class Utils {
     public static void coreProtectTNTOGMessage(Player p, String message) {
 
         p.sendMessage(legacySerializerAnyCase((message)));
+
     }
 
     public static TextComponent legacySerializerAnyCase(String subject) {
@@ -21,7 +22,9 @@ public class Utils {
             if (c == '&') {
 
                 count++;
+
             }
+
         }
 
         // Create an array to store the positions of '&' characters
@@ -35,30 +38,38 @@ public class Utils {
                 if (isUpperBukkitCode(subject.charAt(i + 1))) {
 
                     subject = replaceCharAtIndex(subject, (i + 1), Character.toLowerCase(subject.charAt(i + 1)));
+
                 }
 
                 positions[index++] = i;
+
             }
+
         }
 
         return LegacyComponentSerializer.legacyAmpersand().deserialize(subject);
+
     }
 
     private static boolean isUpperBukkitCode(char input) {
 
-        char[] bukkitColorCodes = {'A', 'B', 'C', 'D', 'E', 'F', 'K', 'L', 'M', 'N', 'O', 'R'};
+        char[] bukkitColorCodes = { 'A', 'B', 'C', 'D', 'E', 'F', 'K', 'L', 'M', 'N', 'O', 'R' };
         boolean match = false;
 
         // Loop through each character in the array.
         for (char c : bukkitColorCodes) {
+
             // Check if the current character in the array is equal to the input character.
             if (c == input) {
 
                 match = true;
+
             }
+
         }
 
         return match;
+
     }
 
     private static String replaceCharAtIndex(String original, int index, char newChar) {
@@ -68,9 +79,12 @@ public class Utils {
 
             // Create a new string with the replaced character
             return original.substring(0, index) + newChar + original.substring(index + 1);
+
         }
 
         // If the index is invalid, return the original string
         return original;
+
     }
+
 }
