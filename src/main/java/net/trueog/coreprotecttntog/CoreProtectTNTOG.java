@@ -65,7 +65,7 @@ public class CoreProtectTNTOG extends JavaPlugin implements Listener {
 
         Bukkit.getPluginManager().registerEvents(this, this);
         saveDefaultConfig();
-        Plugin depend = Bukkit.getPluginManager().getPlugin("CoreProtect");
+        Plugin depend = Bukkit.getPluginManager().getPlugin("CoreProtect-OG");
         if (depend == null) {
 
             getServer().getPluginManager().disablePlugin(this);

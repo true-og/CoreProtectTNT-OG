@@ -1,6 +1,6 @@
 name: CoreProtectTNT-OG
-main: net.trueog.coreprotecttntog.Main
+main: net.trueog.coreprotecttntog.CoreProtectTNTOG
 version: ${version}
-api-version: 1.19
+api-version: ${apiVersion}
 depend:
   - CoreProtect-OG
