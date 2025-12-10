@@ -8,3 +8,4 @@ A fork of [CoreProtectTNT](https://modrinth.com/plugin/coreprotecttnt) maintaine
 - ChatColor -> MiniMessage TextComponent API.
 - 1.19.2 -> 1.19.4 API.
 - Updated CoreProtect API to v22.4.
+- Targets [CoreProtect-OG](https://github.com/true-og/CoreProtect-OG) fork.
